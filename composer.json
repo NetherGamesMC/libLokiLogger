@@ -1,0 +1,19 @@
+{
+  "name": "nethergamesmc/liblokilogger",
+  "description": "Small and compact Grafana Loki logger for PocketMine-MP",
+  "type": "project",
+  "license": "proprietary",
+  "require": {
+    "php": "^8.0"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "1.8.0",
+    "pocketmine/pocketmine-mp": "dev-stable"
+  },
+  "autoload": {
+    "psr-4": {
+      "libLokiLogger\\": "/"
+    }
+  },
+  "minimum-stability": "dev"
+}
