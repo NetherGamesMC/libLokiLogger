@@ -2,11 +2,11 @@
 
 namespace libLokiLogger;
 
-use http\Exception\RuntimeException;
 use pocketmine\thread\Thread;
 use pocketmine\utils\Internet;
 use pocketmine\utils\InternetException;
 use pocketmine\utils\SingletonTrait;
+use RuntimeException;
 use Threaded;
 
 class LokiLoggerThread extends Thread
@@ -27,7 +27,7 @@ class LokiLoggerThread extends Thread
     public function __construct(
         private string $composerPath,
         private string $endpoint,
-        array $labels = [])
+        array          $labels = [])
     {
         $this->buffer = new Threaded();
         $this->labels = igbinary_serialize($labels);

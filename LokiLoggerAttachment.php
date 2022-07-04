@@ -10,6 +10,14 @@ use ThreadedLoggerAttachment;
 
 class LokiLoggerAttachment extends ThreadedLoggerAttachment
 {
+    /** @var LokiLoggerThread */
+    private LokiLoggerThread $lokiInstance;
+
+    public function __construct()
+    {
+        $this->lokiInstance = LokiLoggerThread::getInstance();
+    }
+
     public function log($level, $message)
     {
         $thread = Thread::getCurrentThread();
@@ -21,6 +29,6 @@ class LokiLoggerAttachment extends ThreadedLoggerAttachment
             $threadName = (new ReflectionClass($thread))->getShortName() . " thread";
         }
 
-        LokiLoggerThread::getInstance()->write(preg_filter('/^\[(.*?)] /', '', TextFormat::clean($message)), ['level' => $level, 'thread' => $threadName]);
+        $this->lokiInstance->write(preg_filter('/^\[(.*?)] /', '', TextFormat::clean($message)), ['level' => $level, 'thread' => $threadName]);
     }
 }
