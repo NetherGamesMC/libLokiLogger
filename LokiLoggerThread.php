@@ -60,6 +60,10 @@ class LokiLoggerThread extends Thread
 
     protected function onRun(): void
     {
+        if (!empty($this->composerPath)) {
+            require $this->composerPath;
+        }
+
         $defaultLabels = igbinary_unserialize($this->labels);
 
         while (!$this->isKilled) {
