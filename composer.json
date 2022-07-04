@@ -2,7 +2,7 @@
   "name": "nethergamesmc/liblokilogger",
   "description": "Small and compact Grafana Loki logger for PocketMine-MP",
   "type": "project",
-  "license": "proprietary",
+  "license": "GPL-2.0+",
   "require": {
     "php": "^8.0"
   },
