@@ -8,6 +8,13 @@ use pocketmine\utils\InternetException;
 use pocketmine\utils\SingletonTrait;
 use RuntimeException;
 use Threaded;
+use function array_merge;
+use function explode;
+use function igbinary_serialize;
+use function igbinary_unserialize;
+use function json_encode;
+use function microtime;
+use function strlen;
 
 class LokiLoggerThread extends Thread
 {
@@ -44,7 +51,12 @@ class LokiLoggerThread extends Thread
     {
         $currentTime = sprintf("%d", microtime(true) * 1000000000);
         $this->synchronized(function () use ($line, $currentTime, $labels): void {
-            $this->buffer[] = igbinary_serialize([$line, $currentTime, $labels]);
+            foreach (explode("\n", $line) as $l) {
+                if ($l !== '') {
+                    $this->buffer[] = igbinary_serialize([$l, $currentTime, $labels]);
+                }
+            }
+
             $this->notify();
         });
     }
