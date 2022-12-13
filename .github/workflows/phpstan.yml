@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: AutoModality/action-clean@v1
       - name: Startup
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.ng_token }}
           submodules: true
