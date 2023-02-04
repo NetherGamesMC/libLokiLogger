@@ -4,11 +4,13 @@
   "type": "project",
   "license": "GPL-2.0+",
   "require": {
-    "php": "^8.0"
+    "php": "^8.0",
+    "ext-curl": "*",
+    "ext-igbinary": "*"
   },
   "require-dev": {
     "phpstan/phpstan": "1.9.14",
-    "pocketmine/pocketmine-mp": "dev-stable"
+    "pocketmine/pocketmine-mp": "dev-next-major"
   },
   "autoload": {
     "psr-4": {

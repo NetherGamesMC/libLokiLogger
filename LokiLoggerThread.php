@@ -2,16 +2,15 @@
 
 namespace libLokiLogger;
 
+use pocketmine\thread\NonThreadSafeValue;
 use pocketmine\thread\Thread;
 use pocketmine\utils\Internet;
 use pocketmine\utils\InternetException;
 use pocketmine\utils\SingletonTrait;
 use RuntimeException;
-use Threaded;
+use ThreadedArray;
 use function array_merge;
 use function explode;
-use function igbinary_serialize;
-use function igbinary_unserialize;
 use function json_encode;
 use function microtime;
 use function strlen;
@@ -22,22 +21,22 @@ class LokiLoggerThread extends Thread
 
     public const PUBLISHING_DELAY = 5;
 
-    /** @var Threaded */
-    private Threaded $buffer;
-    /** @var string */
-    private string $labels;
+    /** @var ThreadedArray */
+    private ThreadedArray $buffer;
+    /** @phpstan-var NonThreadSafeValue<array<string, string>> */
+    private NonThreadSafeValue $labels;
 
     /**
      * @param string $endpoint The endpoint to grafana loki
-     * @param array $labels Default labels that will be used to identify the logs' origin.
+     * @param array<string, string> $labels Default labels that will be used to identify the logs' origin.
      */
     public function __construct(
         private string $composerPath,
         private string $endpoint,
         array          $labels = [])
     {
-        $this->buffer = new Threaded();
-        $this->labels = igbinary_serialize($labels);
+        $this->buffer = new ThreadedArray();
+        $this->labels = new NonThreadSafeValue($labels);
 
         self::setInstance($this);
     }
@@ -76,7 +75,7 @@ class LokiLoggerThread extends Thread
             require $this->composerPath;
         }
 
-        $defaultLabels = igbinary_unserialize($this->labels);
+        $defaultLabels = $this->labels->deserialize();
 
         while (!$this->isKilled) {
             $start = microtime(true);
