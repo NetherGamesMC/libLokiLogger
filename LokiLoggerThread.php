@@ -2,13 +2,13 @@
 
 namespace libLokiLogger;
 
+use pmmp\thread\ThreadSafeArray;
 use pocketmine\thread\NonThreadSafeValue;
 use pocketmine\thread\Thread;
 use pocketmine\utils\Internet;
 use pocketmine\utils\InternetException;
 use pocketmine\utils\SingletonTrait;
 use RuntimeException;
-use ThreadedArray;
 use function array_merge;
 use function explode;
 use function json_encode;
@@ -21,8 +21,8 @@ class LokiLoggerThread extends Thread
 
     public const PUBLISHING_DELAY = 5;
 
-    /** @var ThreadedArray */
-    private ThreadedArray $buffer;
+    /** @var ThreadSafeArray */
+    private ThreadSafeArray $buffer;
     /** @phpstan-var NonThreadSafeValue<array<string, string>> */
     private NonThreadSafeValue $labels;
 

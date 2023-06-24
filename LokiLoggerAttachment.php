@@ -2,13 +2,14 @@
 
 namespace libLokiLogger;
 
+use pmmp\thread\Thread as NativeThread;
+use pocketmine\thread\log\ThreadSafeLoggerAttachment;
 use pocketmine\thread\Thread;
 use pocketmine\thread\Worker;
 use pocketmine\utils\TextFormat;
 use ReflectionClass;
-use ThreadedLoggerAttachment;
 
-class LokiLoggerAttachment extends ThreadedLoggerAttachment
+class LokiLoggerAttachment extends ThreadSafeLoggerAttachment
 {
     /** @var LokiLoggerThread */
     private LokiLoggerThread $lokiInstance;
@@ -18,9 +19,9 @@ class LokiLoggerAttachment extends ThreadedLoggerAttachment
         $this->lokiInstance = LokiLoggerThread::getInstance();
     }
 
-    public function log($level, $message)
+    public function log(string $level, string $message): void
     {
-        $thread = Thread::getCurrentThread();
+        $thread = NativeThread::getCurrentThread();
         if ($thread === null) {
             $threadName = "Server thread";
         } elseif ($thread instanceof Thread or $thread instanceof Worker) {
