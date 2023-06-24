@@ -9,8 +9,8 @@
     "ext-igbinary": "*"
   },
   "require-dev": {
-    "phpstan/phpstan": "1.10.3",
-    "pocketmine/pocketmine-mp": "dev-next-major"
+    "phpstan/phpstan": "1.10.21",
+    "pocketmine/pocketmine-mp": "dev-stable"
   },
   "autoload": {
     "psr-4": {
