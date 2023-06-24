@@ -35,7 +35,7 @@ class LokiLoggerThread extends Thread
         private string $endpoint,
         array          $labels = [])
     {
-        $this->buffer = new ThreadedArray();
+        $this->buffer = new ThreadSafeArray();
         $this->labels = new NonThreadSafeValue($labels);
 
         self::setInstance($this);
