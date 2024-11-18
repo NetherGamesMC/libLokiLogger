@@ -7,7 +7,7 @@
     "php": "^8.0"
   },
   "require-dev": {
-    "phpstan/phpstan": "2.0.1",
+    "phpstan/phpstan": "2.0.2",
     "pocketmine/pocketmine-mp": "dev-stable"
   },
   "autoload": {
